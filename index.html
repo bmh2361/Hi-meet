@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8" />
@@ -38,34 +38,52 @@
   }
   @keyframes float { to { transform: translateY(-12px) translateX(12px) } }
 
-  .wrap{ max-width:1100px; margin:0 auto; padding:64px 24px 100px; position:relative; }
+  /* ===== 布局与比例优化 ===== */
+  .wrap{ 
+    max-width:1200px; 
+    width:100%;
+    margin:0 auto; 
+    padding:48px 20px 80px; 
+    position:relative; 
+  }
   .title{ display:flex; align-items:center; gap:14px; margin-bottom:22px; }
   .logo-img{
-    width:54px; height:54px; border-radius:14px; object-fit:contain;
+    width:52px; height:52px; border-radius:14px; object-fit:contain;
     background:#fff; padding:6px; box-shadow:0 6px 30px #ff7f0044;
   }
-  h1{ margin:0; font-size:28px; letter-spacing:.5px;
+  h1{ margin:0; font-size:clamp(22px,2.4vw,28px); letter-spacing:.5px;
     background: linear-gradient(90deg, #fff, #ffe7c7 40%, #ffb360 80%);
     -webkit-background-clip:text; background-clip:text; color:transparent;
   }
-  .sub{color:var(--muted); margin:6px 0 28px; line-height:1.6}
+  .sub{color:var(--muted); margin:6px 0 28px; line-height:1.6; font-size:clamp(13px,1.6vw,16px);}
 
   .panel{
+    width:100%;
     border-radius:24px; padding:28px; border:1px solid var(--stroke);
     background: linear-gradient(180deg, #ffffff1a, #ffffff0a);
     box-shadow: 0 30px 80px #00000066, inset 0 0 0 1px #ffffff14;
-    display:grid; grid-template-columns: 1.2fr 1fr; gap:28px;
+    display:grid; grid-template-columns: 1.1fr 0.9fr; gap:32px;
+    align-items:center;
   }
-  @media (max-width: 980px){ .panel{ grid-template-columns:1fr; } }
+  @media (max-width: 980px){ 
+    .panel{ grid-template-columns:1fr; gap:22px; padding:22px; } 
+  }
 
+  /* 手机模型：使用 clamp 自适应 & 更紧凑的纵横比 */
   .phone{
-    width: 380px; max-width: 100%; margin:0 auto; aspect-ratio: 9/19.5; position:relative;
-    border-radius: 40px; background: #0b0f19; border:1px solid #ff954555;
+    width: clamp(260px, 32vw, 360px);
+    max-width: 100%; 
+    margin:0 auto; 
+    aspect-ratio: 9/18.2;           /* 比原来更矮，更协调 */
+    position:relative;
+    border-radius: 34px; 
+    background: #0b0f19; 
+    border:1px solid #ff954555;
     box-shadow: 0 20px 60px #0008, inset 0 0 0 8px #0f1422, inset 0 0 0 10px #1b2233;
   }
   .notch{ position:absolute; top:10px; left:50%; transform:translateX(-50%);
     width:40%; height:26px; background:#000; border-radius:14px; }
-  .screen{ position:absolute; inset:18px; border-radius:26px; overflow:hidden;
+  .screen{ position:absolute; inset:14px; border-radius:24px; overflow:hidden;
     background: radial-gradient(100% 80% at 50% 20%, #2a2a2a, #0b0f19 60%);
     outline:1px solid #ffffff20; }
   .glow{ position:absolute; inset:-20%;
@@ -78,7 +96,7 @@
   .slide{ position:absolute; width:92%; max-width:314px; padding:18px;
     border-radius:18px; background:linear-gradient(180deg,#ffffff2a,#ffffff12);
     border:1px solid #ffffff40; box-shadow:0 12px 40px #0009;
-    opacity:0; transform: translateY(18px) scale(.98); transition: all .85s; }
+    opacity:0; transform: translateY(18px) scale(.98); transition: all .85s cubic-bezier(.2,.8,.2,1); }
   .slide.active{ opacity:1; transform:translateY(0) scale(1); }
   .badge{ display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px;
     background:#1f1f1fbb; border:1px solid #ffffff33; font-size:12px; margin-bottom:10px; }
@@ -89,24 +107,24 @@
   .chip{ padding:6px 10px; border-radius:999px; font-size:12px;
     border:1px solid #ffffff33; background:#2a2a2a99; }
 
-  .side{ display:flex; flex-direction:column; gap:14px; justify-content:center; }
+  .side{ display:flex; flex-direction:column; gap:16px; justify-content:center; }
   .pill{ display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:999px;
     background:var(--glass); border:1px solid var(--stroke); width:fit-content; backdrop-filter: blur(8px); }
-  .kpi{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-top:10px; }
+  .kpi{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-top:6px; }
   .k{ padding:16px; border-radius:16px; border:1px solid var(--stroke); background:var(--glass) }
   .k b{ font-size:22px; display:block; margin-bottom:2px; background:linear-gradient(90deg,#fff,#ffd8a8);
     -webkit-background-clip:text; color:transparent; }
   .hint{ color:var(--muted); font-size:13px; margin-top:6px }
 
-  .controls{ display:flex; gap:10px; margin-top:16px; }
+  .controls{ display:flex; gap:10px; margin-top:4px; flex-wrap:wrap; }
   .btn{ padding:10px 14px; border-radius:12px; border:1px solid #ffffff3a; cursor:pointer;
     background:#252525; color:var(--white); }
   .btn:hover{ background:#2f2f2f }
-  .dots{ display:flex; gap:8px; align-items:center; margin-top:10px; }
+  .dots{ display:flex; gap:8px; align-items:center; margin-top:6px; }
   .dot{ width:9px; height:9px; border-radius:50%; background:#ffffff33 }
   .dot.active{ background:linear-gradient(180deg,#ffcf99,#ff9a2b); }
 
-  footer{ margin-top:16px; color:#ffe4c6; font-size:12px; opacity:.95 }
+  footer{ margin-top:8px; color:#ffe4c6; font-size:12px; opacity:.95 }
 
   .float-tags{
     position:absolute; inset: -10px -10px auto auto; width: 360px; max-width:42vw; pointer-events:none;
@@ -164,6 +182,10 @@
           </div>
         </div>
       </div>
+      <!-- 漂浮标签可保留/移除 -->
+      <div class="float-tags" aria-hidden="true">
+        <span class="ft">London</span><span class="ft">Edinburgh</span><span class="ft">中文 / English</span>
+      </div>
     </div>
 
     <div class="side">
@@ -181,13 +203,19 @@
 <script>
 (function(){
   const slides=document.querySelectorAll('.slide');
-  const dotsWrap=document.getElementById('dots');let i=0,timer=null;
+  const dotsWrap=document.getElementById('dots');let i=0,timer=null,hold=false;
   slides.forEach((_,idx)=>{const d=document.createElement('div');d.className='dot'+(idx===0?' active':'');d.onclick=()=>go(idx,true);dotsWrap.appendChild(d);});
   const dots=document.querySelectorAll('.dot');
   function go(n,manual=false){slides[i].classList.remove('active');dots[i].classList.remove('active');i=(n+slides.length)%slides.length;slides[i].classList.add('active');dots[i].classList.add('active');if(manual)pause();}
   function next(){go(i+1)}function prev(){go(i-1)}
-  function play(){timer=setInterval(next,4200)}function pause(){if(timer)clearInterval(timer);setTimeout(play,9000)}
+  function play(){timer=setInterval(next,4200);hold=false;}function pause(){if(timer)clearInterval(timer);hold=true;setTimeout(()=>{if(hold)play();},9000)}
   document.getElementById('next').onclick=()=>go(i+1,true);document.getElementById('prev').onclick=()=>go(i-1,true);
+
+  // 触摸滑动切换（移动端）
+  let startX=null; const scr=document.querySelector('.screen');
+  scr.addEventListener('touchstart', e=>{ startX=e.touches[0].clientX; }, {passive:true});
+  scr.addEventListener('touchmove', e=>{ if(startX===null)return; const dx=e.touches[0].clientX-startX; if(Math.abs(dx)>40){ go(i+(dx<0?1:-1),true); startX=null; } }, {passive:true});
+
   play();
 })();
 </script>
